@@ -1,0 +1,35 @@
+{% extends 'events/show.html' %}
+
+{% block content %}
+
+<h2 style="text-align: center; color: #333; margin: 30px 0;">Events I'm Attending</h2>
+
+<div style="max-width: 600px; margin: 0 auto; padding: 0 15px;">
+
+{% for registration in my_registrations %}
+    <div class="card" style="background: white; padding: 25px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;">
+        <h3 style="color: #4a90e2; margin-top: 0;">{{ registration.event.title }}</h3>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">{{ registration.event.description }}</p>
+         <div style="background-color: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: left; display: inline-block; width: 90%;">
+                <p style="margin: 5px 0;"><strong>Location:</strong> {{ registration.event.location }}</p>
+                <p style="margin: 5px 0;"><strong>Start:</strong> {{ registration.event.start_time }}</p>
+                <p style="margin-top:10px; ">
+                Need help? <a href="/contact/">Contact us</a>
+        </div>
+
+        <a href="{% url 'cancel_registration' registration.event.id %}">
+            <button type="submit" style="width: 100%; background-color: #89121e; color: white; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                Cancel Registration
+            </button>
+        </a>
+    </div>
+{% empty %}
+        <div style="text-align: center; color: #888; margin-top: 50px;">
+            <p>You have not registered for any events yet.</p>
+            <a href="{% url 'home' %}" style="color: #4a90e2; font-weight: bold; text-decoration: none;">Find an Event →</a>
+        </div>
+{% endfor %}
+{% endblock %}
+
+
+

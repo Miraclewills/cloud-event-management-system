@@ -1,0 +1,83 @@
+{% extends 'events/show.html' %}
+{% block content %}
+
+{% if message == 'success' %}
+    <div style="padding: 12px; margin-bottom: 15px; border-radius: 8px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+        You have successfully registered for this event!
+    </div>
+{% elif message == 'already_registered' %}
+    <div style="padding: 12px; margin-bottom: 15px; border-radius: 8px; background-color:  #f8d7da; color:#721c24; border: 1px solid #ffeeba;">
+        You are already registered for this event.
+    </div>
+{% elif message == 'event_full' %}
+    <div style="padding: 12px; margin-bottom: 15px; border-radius: 8px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">
+        Sorry, this event is full.
+    </div>
+{% endif %}
+
+<h2 style="color: #333; margin-bottom: 20px;">Announcements</h2>
+{% for announcement in announcements %}
+    <div class="card">
+        <h3>{{ announcement.title }}</h3>
+        <p style="color:#555;">{{ announcement.message }}</p>
+        <p style="font-size:12px; color:#888;">
+            Posted on {{ announcement.created_at }}
+        </p>
+    </div>
+{% empty %}
+    <div class="card">
+        <p style="color:#888;">No announcements yet.</p>
+    </div>
+{% endfor %}
+
+<h2 style="margin-top:20px;">Trending Events</h2>
+{% for event in trending_events %}
+<div class="card">
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.description }}</p>
+    <p><strong>Registrations:</strong> {{ event.registered_count }}</p>
+</div>
+{% empty %}
+<p>No trending events yet.</p>
+{% endfor %}
+
+<h2 style="color: #333; margin-bottom: 20px;">Upcoming Events</h2>
+{% for event in events %}
+    <div class="card"> 
+        <h3>{{ event.title }}</h3>
+        <p style="color: #666; margin-bottom: 15px;">{{ event.description }}</p>
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <p><strong>Location:</strong> {{ event.location }}</p>
+            <p><strong>Start:</strong> {{ event.start_time }}</p>
+            <p><strong>End:</strong> {{ event.end_time }}</p>
+            <p><strong>Capacity:</strong> {{ event.capacity }} | <strong>Registered:</strong> {{ event.registered_count }}</p>
+            
+            <p><strong>Remaining Spots:</strong> 
+                <span class="{% if event.remaining_spots <= 0 %}full{% endif %}">
+                    {{ event.remaining_spots }}
+                </span>
+            </p>
+        </div>
+    
+        {% if user.is_authenticated %}
+            {% if event.remaining_spots > 0 %}
+                <a href="{% url 'register_event' event.id %}" style="text-decoration: none;">
+                    <button style="width: 100%; padding: 12px; font-weight: bold; background-color: #4a90e2; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        Register Now
+                    </button>
+                </a>
+            {% else %}
+                <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; border: 1px solid #f5c6cb; text-align: center; font-weight: bold;">
+                    Event Full
+                </div>
+            {% endif %}
+        {% else %}
+            <a href="/admin/login/" style="color: #4a90e2; font-weight: bold; text-decoration: none;">Log in to Register →</a>
+        {% endif %}
+    </div> 
+{% empty %}
+    <div class="card" style="text-align: center; color: #888;">
+        <p>No events available right now. Check back later!</p>
+    </div>
+{% endfor %}
+{% endblock %}

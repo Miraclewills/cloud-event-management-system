@@ -1,0 +1,29 @@
+name: GitHub Actions Event
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create deployment package
+        run: |
+          zip -r app.zip . -x "*.git*"
+
+      - name: GitHub Actions Event
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: cloud-event-management-system
+          environment_name: cloud-event-env
+          region: us-east-1
+          version_label: github-${{ github.run_number }}
+          deployment_package: app.zip

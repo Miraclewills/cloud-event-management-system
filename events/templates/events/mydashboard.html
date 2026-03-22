@@ -1,0 +1,26 @@
+{% extends 'events/show.html' %}
+
+<h1>DEBUG TEST</h1>
+
+{% for message in messages %}
+  <h2 style="color:red;">MESSAGE: {{ message }}</h2>
+{% endfor %}
+
+{% block content %}
+<h2>My Registered Events</h2>
+<hr>
+
+{% for registration in registrations %}
+    <div style="margin-bottom:15px;">
+        <h3>{{ registration.event.title }}</h3>
+        <p>{{ registration.event.date }}</p>
+        <p>{{ registration.event.location }}</p>
+    </div>
+    <hr>
+{% empty %}
+    <p>You have not registered for any events yet.</p>
+{% endfor %}
+
+<a href="{% url 'home' %}">Back to Events</a>
+
+{% endblock %}

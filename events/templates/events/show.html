@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Event Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(90deg, #4a90e2, #5aa9ff);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+        }
+        .nav-bar {
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;   
+            width: 100%;
+        }
+        .nav-bar a {
+            color: #4a90e2;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .nav-bar a:hover {
+            color: #357abd;
+            text-decoration: underline;
+        }
+        .nav-search input[type="text"] {
+            padding: 6px 10px;
+            width: 180px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }       
+        .container {
+            width: 90%;
+            max-width: 800px; 
+            margin: 40px auto; 
+            text-align: center; 
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            display: inline-block;
+            width: 100%; 
+            text-align: left; 
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+        .nav-search button {
+            padding: 6px 10px;
+            margin-left: 5px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .nav-search button:hover {
+            background-color: #357ABD;
+        }
+        .btn-primary { background-color: #4a90e2; color: white; }
+        .btn-success { background-color: #28a745; color: white; } 
+        .btn-danger { background-color: #dc3545; color: white; }  
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .full { color: #d9534f; font-weight: bold; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Cloud Event Management System</h1>
+</header>
+<div class="nav-bar">
+    {% if user.is_authenticated %}
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'my_events' %}">My Events</a>
+        <a href="/contact/" style="color:#4a90e2;">Contact Us</a>
+        <a href="/feedback/" style="color:#4a90e2;">Feedback</a>
+        <a href="/admin/logout/">Logout</a>
+        
+        <form class="nav-search" method="GET" action="/">
+            <input type="text" name="search" placeholder="Search events..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+    {% else %}
+        <a href="/admin/login/">Login</a>
+    {% endif %}
+</div>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

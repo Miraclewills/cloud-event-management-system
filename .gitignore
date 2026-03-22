@@ -1,0 +1,12 @@
+app.zip
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.elasticbeanstalk/logs/
+.env
+*.zip
