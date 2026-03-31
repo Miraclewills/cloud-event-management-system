@@ -10,5 +10,5 @@ if not User.objects.filter(username='admin').exists():
 else:
     print('Superuser already exists')
 "
-chmod 664 /var/app/staging/db.sqlite3
+chmod 640 /var/app/staging/db.sqlite3
 chown webapp:webapp /var/app/staging/db.sqlite3
