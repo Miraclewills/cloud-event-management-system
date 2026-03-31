@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head><title>Sign Up</title></head>
+<head>
+    <title>Sign Up - Cloud Event Management</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; padding: 0; }
+        header { background: linear-gradient(90deg, #4a90e2, #5aa9ff); color: white; padding: 20px; text-align: center; }
+        .container { max-width: 400px; margin: 60px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #4a90e2; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #357abd; }
+        .links { text-align: center; margin-top: 15px; }
+        .links a { color: #4a90e2; text-decoration: none; }
+    </style>
+</head>
 <body>
-<h2>Sign Up</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign Up</button>
-</form>
-<p>Already have an account? <a href="/accounts/login/">Login</a></p>
+<header><h1>Cloud Event Management System</h1></header>
+<div class="container">
+    <h2>Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+    <div class="links">
+        <a href="/accounts/login/">Already have an account? Login</a>
+    </div>
+</div>
 </body>
 </html>
