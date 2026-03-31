@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.contrib import messages
 from .models import Event, Attendee, Announcement, ContactMessage, Feedback
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 
 class EventForm(forms.ModelForm):
@@ -20,6 +22,18 @@ class FeedbackForm(forms.ModelForm):
         model = Feedback
         fields = ['name', 'rating', 'comment']
 
+# User Login
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'events/signup.html', {'form': form})
+    
 # Home page
 def home(request):
     search_query = request.GET.get('search', '')
