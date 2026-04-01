@@ -40,9 +40,9 @@ def home(request):
     message = request.GET.get('message', '')
 
     if search_query:
-        events = Event.objects.filter(title__icontains=search_query)
+        events = Event.objects.prefetch_related('attendees').filter(title__icontains=search_query)
     else:
-        events = Event.objects.all()
+        events = Event.objects.prefetch_related('attendees').all()
 
     announcements = Announcement.objects.all().order_by('-created_at')
 
