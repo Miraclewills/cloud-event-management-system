@@ -83,14 +83,16 @@ WSGI_APPLICATION = 'eventproj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('RDS_DB_NAME'),
-        'USER': os.environ.get('RDS_USERNAME'),
+        'NAME': os.environ.get('RDS_DB_NAME', 'ebdb'),
+        'USER': os.environ.get('RDS_USERNAME', 'dbadmin'),
         'PASSWORD': os.environ.get('RDS_PASSWORD'),
         'HOST': os.environ.get('RDS_HOSTNAME'),
         'PORT': os.environ.get('RDS_PORT', '5432'),
+        'OPTIONS': {
+            'options': '-c timezone=UTC'
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
