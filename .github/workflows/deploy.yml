@@ -24,5 +24,8 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
+      - name: Initialise EB CLI
+        run: eb init cloud-event-management-system --region us-east-1 --platform python-3.9
+
       - name: Deploy to Elastic Beanstalk
         run: eb deploy Cloud-event-env --staged
