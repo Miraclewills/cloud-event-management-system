@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
-PYTHON=$(find /var/app/venv -name "python3*" -type f | head -1)
+PYTHON=$(find /var/app/venv -name "python3.9" -type f | head -1)
+echo "Using Python: $PYTHON"
 $PYTHON /var/app/staging/manage.py migrate --run-syncdb
 $PYTHON /var/app/staging/manage.py shell -c "
 from django.contrib.auth.models import User
