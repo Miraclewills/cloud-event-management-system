@@ -24,8 +24,18 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
-      - name: Initialise EB CLI
-        run: eb init cloud-event-management-system --region us-east-1 --platform python-3.9
+      - name: Create EB config
+        run: |
+          mkdir -p .elasticbeanstalk
+          cat > .elasticbeanstalk/config.yml << 'EBEOF'
+          branch-defaults:
+            main:
+              environment: Cloud-event-env
+          global:
+            application_name: cloud-event-management-system
+            default_platform: Python 3.9
+            default_region: us-east-1
+          EBEOF
 
       - name: Deploy to Elastic Beanstalk
         run: eb deploy Cloud-event-env --staged
