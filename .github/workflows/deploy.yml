@@ -38,4 +38,4 @@ jobs:
           EBEOF
 
       - name: Deploy to Elastic Beanstalk
-        run: eb deploy Cloud-event-env --staged
+        run: eb deploy --staged
